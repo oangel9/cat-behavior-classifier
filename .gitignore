@@ -1,0 +1,3 @@
+cat_data*.db
+logger.log
+__pycache__/
