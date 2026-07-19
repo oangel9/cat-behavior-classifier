@@ -1,0 +1,3 @@
+2026-07-18: Sensor setup completed. Litter/food/water sensors wired and logging.
+Food and water sensor cones overlap (confirmed: cat sitting between bowls triggers both).
+Debounce increased from 2s to 5s at ~01:22 due to rapid flickering on food/water sensors.

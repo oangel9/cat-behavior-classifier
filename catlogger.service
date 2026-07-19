@@ -1,0 +1,14 @@
+[Unit]
+Description=Cat PIR sensor logger
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/angel/catpi/logger.py
+WorkingDirectory=/home/angel/catpi
+StandardOutput=append:/home/angel/catpi/logger.log
+StandardError=append:/home/angel/catpi/logger.log
+Restart=always
+User=angel
+
+[Install]
+WantedBy=multi-user.target
