@@ -1,3 +1,22 @@
 2026-07-18: Sensor setup completed. Litter/food/water sensors wired and logging.
 Food and water sensor cones overlap (confirmed: cat sitting between bowls triggers both).
 Debounce increased from 2s to 5s at ~01:22 due to rapid flickering on food/water sensors.
+
+2026-07-21: Consolidated from 3 zones to 2 zones (litter, feeding_area) and moved both 
+sensors to direct-wired connections, removing the breadboard entirely.
+
+Root cause investigation: original food/water sensors (shared power via breadboard) showed 
+persistent flickering and perfectly synchronized motion/clear events even with nothing 
+present, plus intermittent detection failures. Ruled out sensitivity/cone overlap as the 
+primary cause after tape masking and trimmer adjustments did not resolve it. Confirmed via 
+isolation test that moving a sensor to a direct Pi connection (bypassing the breadboard 
+entirely) immediately fixed the instability -- root cause was a loose/marginal shared power 
+connection on the breadboard rail, not sensor sensitivity or field-of-view overlap.
+
+Design decision: rather than force an unreliable 3-zone separation (food vs. water) that the 
+hardware could not consistently support, consolidated food and water into a single 
+"feeding_area" zone, wired directly to the Pi (GPIO 17), matching the litter sensor's 
+(GPIO 4) already-reliable direct-wired setup.
+
+Database wiped and restarted clean at 18:41 EDT with the new 2-zone schema. All data from 
+this point forward reflects the final hardware/software design.

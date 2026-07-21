@@ -1,7 +1,7 @@
 from gpiozero import MotionSensor
 from signal import pause
 
-zones = {4: 'litter', 17: 'food', 27: 'water'}
+zones = {4: 'litter', 17: 'food'}
 sensors = {pin: MotionSensor(pin) for pin in zones}
 
 for pin, sensor in sensors.items():

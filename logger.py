@@ -11,8 +11,7 @@ DEBOUNCE_SECONDS =  5
 
 ZONES = {
     4: "litter",
-    17: "food",
-    27: "water",
+    17: "feeding_area",
 }
 
 # --- Database setup ---
