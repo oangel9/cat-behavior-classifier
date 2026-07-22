@@ -49,14 +49,16 @@ def maybe_snapshot(zone):
     filename = f"{SNAPSHOT_DIR}/{zone}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
     camera.capture_file(filename)
 
-# --- Debounce tracking ---
+# --- Debounce tracking (only applied to 'motion' events) ---
 last_logged = {zone: 0 for zone in ZONES.values()}
 
 def log_event(zone, motion_state):
     now = time.time()
-    if now - last_logged[zone] < DEBOUNCE_SECONDS:
-        return
-    last_logged[zone] = now
+
+    if motion_state == "motion":
+        if now - last_logged[zone] < DEBOUNCE_SECONDS:
+            return
+        last_logged[zone] = now
 
     timestamp = datetime.now().isoformat()
     with db_lock:
