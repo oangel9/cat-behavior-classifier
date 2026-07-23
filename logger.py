@@ -1,4 +1,5 @@
 import sqlite3
+import subprocess
 import time
 import threading
 import os
@@ -48,6 +49,8 @@ def maybe_snapshot(zone):
     last_snapshot[zone] = now
     filename = f"{SNAPSHOT_DIR}/{zone}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
     camera.capture_file(filename)
+    camera.capture_file(f"{SNAPSHOT_DIR}/latest.jpg")
+    subprocess.run(["sudo", "killall", "-SIGUSR1", "fbi"])
 
 # --- Debounce tracking (only applied to 'motion' events) ---
 last_logged = {zone: 0 for zone in ZONES.values()}
